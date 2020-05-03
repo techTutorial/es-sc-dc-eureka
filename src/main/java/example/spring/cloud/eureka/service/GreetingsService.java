@@ -1,4 +1,4 @@
-package example.spring.mvc.service;
+package example.spring.cloud.eureka.service;
 
 public interface GreetingsService {
 	

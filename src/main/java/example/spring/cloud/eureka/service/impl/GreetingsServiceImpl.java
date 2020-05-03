@@ -1,4 +1,4 @@
-package example.spring.mvc.service.impl;
+package example.spring.cloud.eureka.service.impl;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import example.spring.mvc.service.GreetingsService;
+import example.spring.cloud.eureka.service.GreetingsService;
 
 @Service
 public class GreetingsServiceImpl implements GreetingsService {

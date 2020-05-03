@@ -1,4 +1,4 @@
-package example.spring.mvc.controller;
+package example.spring.cloud.eureka.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import example.spring.mvc.service.impl.GreetingsServiceImpl;
+import example.spring.cloud.eureka.service.impl.GreetingsServiceImpl;
 
 @RestController
 @RequestMapping(value = "/greet")
