@@ -1,4 +1,4 @@
-package com.eurekaclient;
+package example.spring.mvc;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,12 +6,12 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 @SpringBootApplication
-// Below annotation is used to list down the application on the eureka server (i.e. the registry server).
+// list down applications on Eureka server (i.e. registry server).
 //@EnableDiscoveryClient
 @EnableEurekaClient
-public class WelcomeApp {
+public class DiscoveryClientApp {
 
 	public static void main(String[] args) {
-		SpringApplication.run(WelcomeApp.class, args);
+		SpringApplication.run(DiscoveryClientApp.class, args);
 	}
 }
