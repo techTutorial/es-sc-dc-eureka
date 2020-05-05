@@ -6,15 +6,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import example.spring.cloud.eureka.service.impl.GreetingsServiceImpl;
+import example.spring.cloud.eureka.service.GreetingsService;
 
 @RestController
 @RequestMapping(value = "/greet")
 public class GreetingsCtrl {
 	
 	@Autowired
-	GreetingsServiceImpl greetService;
+	GreetingsService greetService;
 
+	// http://localhost:8181/greet/msg/en
 	@GetMapping(value = "/msg/{localeId}")
 	public String getGreetings(@PathVariable(name = "localeId") String langCode) {
 		return greetService.getGreetings(langCode);
