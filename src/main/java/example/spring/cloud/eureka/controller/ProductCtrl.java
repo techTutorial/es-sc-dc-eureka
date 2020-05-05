@@ -1,6 +1,7 @@
 package example.spring.cloud.eureka.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import example.spring.cloud.eureka.dto.ExampleProductDto;
+import example.spring.cloud.eureka.service.ProductService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,20 +23,21 @@ import java.util.List;
 public class ProductCtrl {
 
     @Autowired
+	@Qualifier("dcRt")
     private RestTemplate restTemplate;
 
     @Autowired
-    WebClient.Builder webClientBuilder;
+    private WebClient.Builder webClientBuilder;
     
+    @Autowired
+    private ProductService prodService;
+    
+    private static final String PROD_USER_API_URI = "http://dc-product-user";
     
     // http://localhost:8181/dc/exam/prodArray
     @RequestMapping("/prodArray")
     public List<ExampleProductDto> getProductsArrays() {
-    	ResponseEntity<ExampleProductDto[]> response =
-    			  restTemplate.getForEntity("http://dc-product-user/example/product", ExampleProductDto[].class);
-    	ExampleProductDto[] prodArray = response.getBody();
-    	List<ExampleProductDto> prodList = Arrays.asList(prodArray);
-    	return prodList;
+    	return prodService.getProductsArrays();
     }
     
     
@@ -43,7 +46,7 @@ public class ProductCtrl {
     @RequestMapping("/prodWrap")
     public List<ExampleProductDto> getProductsWrapperClass() {
     	ExampleProductList response
-    		= restTemplate.getForObject("http://dc-product-user/example/product", ExampleProductList.class);
+    		= restTemplate.getForObject(PROD_USER_API_URI + "/example/product", ExampleProductList.class);
     	List<ExampleProductDto> prodList = response.getProdList();
     	return prodList;
     }
@@ -53,7 +56,7 @@ public class ProductCtrl {
     @RequestMapping("/prodPTR")
     public List<ExampleProductDto> getProductsPTR() {
     	ResponseEntity<List<ExampleProductDto>> response =
-                restTemplate.exchange("http://dc-product-user/example/product",
+                restTemplate.exchange(PROD_USER_API_URI + "/example/product",
                             HttpMethod.GET, null, new ParameterizedTypeReference<List<ExampleProductDto>>() {});
         List<ExampleProductDto> prodList = response.getBody();
         return prodList;
@@ -63,7 +66,7 @@ public class ProductCtrl {
     // http://localhost:8181/dc/exam/prodRT/1
     @RequestMapping("/prodRT/{pId}")
     public ExampleProductDto getProductRT(@PathVariable("pId") String prodId) {
-    	ExampleProductDto prod = restTemplate.getForObject("http://dc-product-user/example/product/" + prodId, ExampleProductDto.class);
+    	ExampleProductDto prod = restTemplate.getForObject(PROD_USER_API_URI + "/example/product/" + prodId, ExampleProductDto.class);
     	return prod;
     }
 
@@ -74,7 +77,7 @@ public class ProductCtrl {
     public ExampleProductDto getProductWC(@PathVariable("pId") String prodId) {
     	ExampleProductDto prod = webClientBuilder.build()
     			.get()
-    			.uri("http://dc-product-user/example/product/"+ prodId)
+    			.uri(PROD_USER_API_URI + "/example/product/"+ prodId)
     			.retrieve()
     			.bodyToMono(ExampleProductDto.class)
     			.block();

@@ -2,6 +2,7 @@ package example.spring.cloud.eureka;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
@@ -14,6 +15,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 // list down applications on Eureka server (i.e. registry server).
 //@EnableDiscoveryClient
 @EnableEurekaClient
+@EnableCircuitBreaker
 public class DiscoveryClientEurekaApp {
 
 	public static void main(String[] args) {
@@ -21,7 +23,7 @@ public class DiscoveryClientEurekaApp {
 	}
 
 	@LoadBalanced
-	@Bean
+	@Bean(name = "dcRt")
 	public RestTemplate getRestTemplate() {
 		// return new RestTemplate();
 		// OR
