@@ -27,7 +27,7 @@ public class DiscoveryClientEurekaApp {
 	public RestTemplate getRestTemplate() {
 		// return new RestTemplate();
 		// OR
-		// how to ensure that below changes are picked
+		// how to ensure that below changes are picked > not working > Pending
 		// create and set timeout property for Http client and pass it to RestTemplate.
 		HttpComponentsClientHttpRequestFactory clientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory();
 		clientHttpRequestFactory.setConnectTimeout(10000);
