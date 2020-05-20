@@ -1,0 +1,23 @@
+
+
+
+### Register multiple Instances of a Spring Boot Eureka Client from a single host > working
+
+#server:
+#  port: ${PORT:0}
+
+#eureka:
+#    instance:
+#        instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+
+
+
+### logging
+logging:
+  level:
+    com.netflix.discovery: 'OFF'
+    org.springframework.cloud: 'DEBUG'
+
+
+
+
